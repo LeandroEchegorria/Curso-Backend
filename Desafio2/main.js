@@ -89,7 +89,7 @@ console.log(productManager.getProducts());
 
 //Otra opcion:
 
-/* class Product{
+class Product{
     constructor(title, description , price , thumbnail ,code , stock) {
         this.title=title
         this.description=description
@@ -113,4 +113,4 @@ const product1 = new Product('arroz', 'rico', 1000, '', '123', 20)
 const product2 = new Product('arroz', 'rico', 1000, '', '123', 20)
 
 console.log(product1)
-console.log(product2) */
+console.log(product2)
