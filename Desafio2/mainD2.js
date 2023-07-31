@@ -1,8 +1,4 @@
-
-
 import {promises as fs} from 'fs'
-
-
 class ProductManager {
     constructor ()
         {
@@ -62,13 +58,15 @@ class ProductManager {
         return this.products.find((product) => product.id === id);
     }
 
-    updateProduct = async (id, {nombre}) => {
-        const products = JSON.parse(await fs.readFile('./productos.json', 'utf-8'))
-        const indice = products.findIndex (prod => prod.id === id)
+    updateProduct = async (id, title) => { //recibe id y campo del producto
+        this.products = JSON.parse(await fs.readFile('./productos.json', 'utf-8')) //lee los productos 
+        const indice = this.products.findIndex (prod => prod.id === id) 
+        console.log(indice)
+        console.log(this.products[indice])
         //si es -1 no encontro
         if (indice!= -1){
-            products[indice].nombre = nombre 
-            await fs.writeFile('./productos.json', JSON.stringify(products))
+            this.products[indice].title = title 
+            await fs.writeFile('./productos.json', JSON.stringify(this.products))
         }else {
             console.log("producto no encontrado")
         }
@@ -110,3 +108,9 @@ setTimeout(() => {
     productManager.getProducts()
 }, 10000);
 
+setTimeout(() => {
+    productManager.updateProduct(2,"Leandro")
+}, 12000)
+setTimeout(() => {
+    productManager.getProducts()
+}, 14000)

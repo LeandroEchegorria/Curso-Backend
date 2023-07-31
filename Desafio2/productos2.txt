@@ -1,6 +1,0 @@
-[
-    (title:"Laptop", description:"Potente laptop para tareas intensivas", price:1000,thumbnail: "laptop.jpg", code:"LP001",stock:10);
-    (title:"Teclado", description:"Teclado para pc", price:1200,thumbnail: "teclado.jpg", code:"TE009",stock:6);
-    (title:"Auriculares", description:"Auriculares surround", price:3000,thumbnail: "headphones.jpg", code:"HP051",stock:18);
-
-]
