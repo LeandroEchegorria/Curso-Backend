@@ -54,8 +54,9 @@ class ProductManager {
         }
     }
 
-    getProductsById = (id) => {
-        return this.products.find((product) => product.id === id);
+    getProductsById = async (id) => {
+        this.products = JSON.parse(await fs.readFile('./productos.json', 'utf-8'))
+        return console.log(this.products.find((product) => product.id === id));
     }
 
     updateProduct = async (id, title) => { //recibe id y campo del producto
@@ -114,3 +115,5 @@ setTimeout(() => {
 setTimeout(() => {
     productManager.getProducts()
 }, 14000)
+
+//productManager.getProductsById(2)
