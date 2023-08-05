@@ -1,8 +1,9 @@
 {
   "name": "curso-backend",
   "version": "1.0.0",
-  "description": "//Otra opcion para Desafio 1:",
+  "description": "Desafio 3",
   "main": "mainD3.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
