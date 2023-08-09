@@ -7,7 +7,7 @@ export class ProductManager {
             this.path = path;
         }
     
-/* 
+
     addProduct = async (title, description, price, categoria, code, stock) => {
         if (!title || !description || !price || !categoria || !code || !stock) {
             console.error("Todos los campos del producto son obligatorios.");
@@ -39,32 +39,30 @@ export class ProductManager {
         products.push(product)
         await fs.writeFile(this.path, JSON.stringify(products))
         
-    } */
+    } 
 
     getProducts = async ()=> {
         await fs.readFile(this.path, "utf-8", (err,data) => {
-            if (err) throw err
-            console.log(data) 
+            if (err) throw err 
             if (!data) {
                 console.error('Error al leer el archivo')
                 return []
             } else {
-                this.products = JSON.parse(data)
-                console.log('Contenido del archivo:', this.products)
-                return this.products
+                
+                console.log('Contenido del archivo:', data)
+                return data
             }
-          })
+        })
 
-
-        } 
 
     } 
-/* 
+ 
     getProductsById = async (id) => {
-        this.products = JSON.parse(await fs.readFile(this.path, "utf-8"))
-        return console.log(this.products.find((product) => product.id === id));
+        this.products = await fs.readFile(this.path, "utf-8")
+        return this.products.find((product) => product.id === id)
     } 
 
+    
     updateProduct = async (id, title) => { //recibe id y campo del producto
         this.products = JSON.parse(await fs.readFile(this.path, 'utf-8')) //lee los productos 
         const indice = this.products.findIndex (prod => prod.id === id) 
@@ -84,4 +82,5 @@ export class ProductManager {
         //trae todos los productos q no sean el del id consultado
         const prods= products.filter(prod=> prod.id != id) 
         await fs.writeFile(this.path, JSON.stringify(prods))
-    }*/
+    }
+}

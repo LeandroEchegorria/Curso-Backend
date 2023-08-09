@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 app.get('/productos', async (req, res) => {
     try {
         const productos = await productManager.getProducts()
-        res.status(200).send(productos)
+        res.status(200).send({productos})
     } catch (error) {
         res.status(500).send("Error al obtener los productos");
     }
@@ -30,6 +30,13 @@ app.get('/productos', async (req, res) => {
         limit ? res.send(products.slice(0, limit)) : res.send(products); */
    
 })
+/* app.get('/productos', async (req, res) => {
+    const { limit } = req.query;
+    const productos = await productManager.getProducts();
+    res.json({
+      productos: limit ? productos.slice(0, limit) : productos
+    });
+  }); */
 
 app.get('/productos/:id', async (req,res) => {
     try{    
