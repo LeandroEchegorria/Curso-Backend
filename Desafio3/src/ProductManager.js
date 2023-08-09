@@ -41,27 +41,29 @@ export class ProductManager {
         
     } */
 
-    async getProducts () {
-        try {const data = await fs.readFile(this.path, "utf-8")
+    getProducts = async ()=> {
+        await fs.readFile(this.path, "utf-8", (err,data) => {
+            if (err) throw err
+            console.log(data) 
+            if (!data) {
+                console.error('Error al leer el archivo')
+                return []
+            } else {
+                this.products = JSON.parse(data)
+                console.log('Contenido del archivo:', this.products)
+                return this.products
+            }
+          })
 
-        if (!data) {
-            console.error('Error al leer el archivo')
-            return []
-        } else {
-            this.products = JSON.parse(data)
-            console.log('Contenido del archivo:', this.products)
-            return this.products
-        }} catch (error) {
-            console.error('Error al leer el archivo:', error);
-            return [];
-        }
 
-    }
+        } 
 
+    } 
+/* 
     getProductsById = async (id) => {
         this.products = JSON.parse(await fs.readFile(this.path, "utf-8"))
         return console.log(this.products.find((product) => product.id === id));
-    }
+    } 
 
     updateProduct = async (id, title) => { //recibe id y campo del producto
         this.products = JSON.parse(await fs.readFile(this.path, 'utf-8')) //lee los productos 
@@ -82,5 +84,4 @@ export class ProductManager {
         //trae todos los productos q no sean el del id consultado
         const prods= products.filter(prod=> prod.id != id) 
         await fs.writeFile(this.path, JSON.stringify(prods))
-    }
-}
+    }*/

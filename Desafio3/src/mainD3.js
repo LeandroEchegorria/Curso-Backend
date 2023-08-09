@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 app.get('/productos', async (req, res) => {
     try {
         const productos = await productManager.getProducts()
-        res.status(200).send({productos})
+        res.status(200).send(productos)
     } catch (error) {
         res.status(500).send("Error al obtener los productos");
     }
