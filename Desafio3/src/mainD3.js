@@ -7,7 +7,7 @@ app.use(express.urlencoded({extended:true}))
 const PORT = 4008
 
 app.listen(PORT, ()=> {
-    console.log(`Server express on port ${PORT}`)
+    console.log(`Server express on port ${PORT}. http://localhost:${PORT}/`)
 })
 const productManager = new ProductManager("./src/productos.json")
 
@@ -16,31 +16,20 @@ app.get('/', (req, res) => {
 })
 
 app.get('/productos', async (req, res) => {
-    try {
-        const productos = await productManager.getProducts()
-        res.status(200).send({productos})
-    } catch (error) {
-        res.status(500).send("Error al obtener los productos");
-    }
-    
-   
-    
-       /*  const { limit } = req.query;
-        const products = await manager.getProducts();
-        limit ? res.send(products.slice(0, limit)) : res.send(products); */
-   
+    const {limit} = req.query
+    const products = await productManager.getProducts()
+    if (!limit) {
+        res.send(products);
+      } else {
+        res.send(products.slice(0, limit));
+      }
 })
-/* app.get('/productos', async (req, res) => {
-    const { limit } = req.query;
-    const productos = await productManager.getProducts();
-    res.json({
-      productos: limit ? productos.slice(0, limit) : productos
-    });
-  }); */
+
 
 app.get('/productos/:id', async (req,res) => {
     try{    
-        const productos = await productManager.getProducts()
+        console.log("id: ",req.params.id)
+        const productos = await productManager.getProductsById(req.params.id)
         const prod = productos.find(prod => prod.id === parseInt(req.params.id))
         if (prod) {
             res.status(200).send(prod)

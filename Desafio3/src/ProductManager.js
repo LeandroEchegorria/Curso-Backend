@@ -41,30 +41,24 @@ export class ProductManager {
         
     } 
 
-    getProducts = async ()=> {
-        await fs.readFile(this.path, "utf-8", (err,data) => {
-            if (err) throw err 
-            if (!data) {
-                console.error('Error al leer el archivo')
-                return []
-            } else {
-                
-                console.log('Contenido del archivo:', data)
-                return data
-            }
-        })
+    async getProducts () {
+        const prod = await fs.promises.readFile(this.path, "utf-8")
+        return prod
+
+
+    
 
 
     } 
  
-    getProductsById = async (id) => {
+    async getProductsById (id) {
         this.products = await fs.readFile(this.path, "utf-8")
         return this.products.find((product) => product.id === id)
     } 
 
     
-    updateProduct = async (id, title) => { //recibe id y campo del producto
-        this.products = JSON.parse(await fs.readFile(this.path, 'utf-8')) //lee los productos 
+    async updateProduct (id, title) { //recibe id y campo del producto
+        this.products = JSON.parse(await fs.readFile(this.path, 'utf-8')) 
         const indice = this.products.findIndex (prod => prod.id === id) 
         console.log(indice)
         console.log(this.products[indice])
@@ -77,7 +71,7 @@ export class ProductManager {
         }
     }
 
-    deleteProduct = async (id) => {
+    async deleteProduct (id) {
         const products = JSON.parse(await fs.readFile(this.path, 'utf-8'))
         //trae todos los productos q no sean el del id consultado
         const prods= products.filter(prod=> prod.id != id) 
