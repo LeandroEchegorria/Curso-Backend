@@ -28,9 +28,7 @@ app.get('/productos', async (req, res) => {
 
 app.get('/productos/:id', async (req,res) => {
     try{    
-        console.log("id: ",req.params.id)
-        const productos = await productManager.getProductsById(req.params.id)
-        const prod = productos.find(prod => prod.id === parseInt(req.params.id))
+        const prod = await productManager.getProductsById(parseInt(req.params.id))
         if (prod) {
             res.status(200).send(prod)
         } else {
@@ -46,11 +44,10 @@ app.get('*', (req,res)=> {
     res.send("Error 404")
 })
 
-/* app.get('/productos', (req,res) => {
+app.get('/productos', (req,res) => {
     // console.log(req.query) //consultas como si fuese un objeto
     const {categoria} = req.query
     console.log(categoria)
     const prods = productos.filter(prod => prod.categoria === categoria)
     res.send(prods)
 }) 
- */

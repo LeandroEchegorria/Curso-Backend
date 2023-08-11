@@ -52,29 +52,35 @@ export class ProductManager {
     } 
  
     async getProductsById (id) {
-        this.products = await fs.readFile(this.path, "utf-8")
-        return this.products.find((product) => product.id === id)
+        let products = JSON.parse(await fs.promises.readFile(this.path, "utf-8"))
+        const prodFound = products.find((product) => product.id === id)
+        return prodFound
     } 
 
     
     async updateProduct (id, title) { //recibe id y campo del producto
-        this.products = JSON.parse(await fs.readFile(this.path, 'utf-8')) 
-        const indice = this.products.findIndex (prod => prod.id === id) 
+        let products = JSON.parse(await fs.promises.readFile(this.path, 'utf-8')) 
+        const indice = products.findIndex (prod => prod.id === id) 
         console.log(indice)
-        console.log(this.products[indice])
+        console.log(products[indice])
         //si es -1 no encontro
         if (indice!= -1){
-            this.products[indice].title = title 
-            await fs.writeFile(this.path, JSON.stringify(this.products))
+            products[indice].title = title 
+            products[indice].description = description
+            products[indice].price = price
+            products[indice].thumbnail = thumbnail
+            products[indice].code = code
+            products[indice].stock = stock
+            await fs.promises.writeFile(this.path, JSON.stringify(products))
         }else {
             console.log("producto no encontrado")
         }
     }
 
     async deleteProduct (id) {
-        const products = JSON.parse(await fs.readFile(this.path, 'utf-8'))
+        const products = JSON.parse(await fs.promises.readFile(this.path, 'utf-8'))
         //trae todos los productos q no sean el del id consultado
         const prods= products.filter(prod=> prod.id != id) 
-        await fs.writeFile(this.path, JSON.stringify(prods))
+        await fs.promises.writeFile(this.path, JSON.stringify(prods))
     }
 }
