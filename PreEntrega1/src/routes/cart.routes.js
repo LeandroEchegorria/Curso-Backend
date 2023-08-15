@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { CartManager } from '../controllers/cartManager.js';
 
-const cartManager = new CartManager('./src/models/cart.txt', './src/models/productos.txt');
+const cartManager = new CartManager('./src/models/cart.json', './src/models/productos.json');
 
 const routerCart = Router();
 
@@ -32,7 +32,10 @@ routerCart.post('/:cid/product/:pid', async (req, res) => {
     const {cid, pid} = req.params;
     const {quantity} = req.body;
     const success = await cartManager.addProductToCart(cid, pid, quantity);
-    (success) ? res.status(200).send("Product added to cart") : res.status(404).send("Cart not found");
+    
+    setTimeout(() => {
+        (success) ? res.status(200).send("Product added to cart") : res.status(404).send("Cart not found");
+    }, 1500);
 });
 
 export default routerCart;

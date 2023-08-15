@@ -16,7 +16,14 @@ export class CartManager {
     await this.saveCartsToFile();
     return newCart;
   }
-
+/*   static incrementId(cart) {
+		const ids = [];
+		let newId = 1;
+		cart.forEach(product => ids.push(cart.id));
+		cart.length > 0 && (newId = Math.max(...ids) + 1);
+		return newId;
+	}
+ */
 
   async getCarts() {
     try {
