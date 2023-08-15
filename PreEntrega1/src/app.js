@@ -1,33 +1,25 @@
 import express from 'express';
+import routerProd from './routes/product.routes.js';
+import routerCart from './routes/cart.routes.js';
+import { __dirname } from './path.js'
+import path from 'path';
 
 const app = express()
+const PORT = 8080
 
 //middlewares
 app.use(express.json())
 app.use(express.urlencoded ({extended: true}))
 
-const PORT = 8080
+//Routes
+app.use('/static', express.static(path.join(__dirname, '/public')))
+app.use('/api/product', routerProd)
+/* app.use('/api/product', routerCart) */
+
+
+//Server
 app.listen(PORT, ()=> {
     console.log(`Server on port ${PORT}, http://localhost:${PORT}/`)
-})
-
-app.get('/', (req,res)=>{
-    res.send("PREENTREGA 1")
-})
-
-//Ruta products:
-app.get('/products', (req,res)=> {
-    res.send("grupo de ruta products, todos los productos de la base con el limit")
-})
-app.get('/products/:id', (req,res)=> {
-    res.send("grupo de ruta products, un solo producto")
-})
-
-
-
-//Ruta carts:
-app.get('/carts', (req,res)=>{
-    res.send("grupo de ruta carts")
 })
 
 /* 
