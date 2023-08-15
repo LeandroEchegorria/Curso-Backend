@@ -9,7 +9,7 @@ export class CartManager {
 
   async createCart() {
     const newCart = {
-      id: uuidv4(), //id unico
+      id: uuidv4(), //metodo para id unico
       products: []
     };
     this.carts.push(newCart);

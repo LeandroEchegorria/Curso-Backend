@@ -17,14 +17,14 @@ routerCart.get('/', async (req, res) => {
 
 
 routerCart.get('/:cid', async (req, res) => {
-    const {cid} = req.params;
+    const cid = req.params.cid;
     const cart = await cartManager.getCartById(cid);
     (cart) ? res.status(200).send(cart) : res.status(404).send("Cart not found");
 });
 
 routerCart.delete('/:cid', async (req, res) => {
-    const cartId = req.params.cid;
-    const confirmation = await cartManager.deleteCart(cartId);
+    const cid = req.params.cid;
+    const confirmation = await cartManager.deleteCart(cid);
     (confirmation) ? res.status(200).send("Cart deleted") : res.status(404).send("Cart not found");
   });
 

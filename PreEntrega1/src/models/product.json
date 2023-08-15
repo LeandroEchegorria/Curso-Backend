@@ -1,53 +1,22 @@
 [
-    {
-        "id": 1,
-        "nombre": "Arroz", 
-        "descripcion":"arroz gallo en tu cocina", 
-        "precio": 350, 
-        "categoria":"Cereales", 
-        "status":true,
-        "code":"CER082",
-        "stock": 9
-    },
-    {
-        "id": 2,
-        "nombre": "Fideos", 
-        "descripcion":"Mostacholes", 
-        "precio": 250, 
-        "categoria":"Cereales", 
-        "status":true,
-        "code":"CER072",
-        "stock": 12
-    },
-    {
-        "id": 3,
-        "nombre": "Leche", 
-        "descripcion":"Descremada", 
-        "precio": 380, 
-        "categoria":"Lacteos", 
-        "status":true,
-        "code":"LAC011",
-        "stock": 17
-    },
-    {
-        "id": 4,
-        "nombre": "Carne Picada", 
-        "descripcion":"Carne vacuna", 
-        "precio": 840, 
-        "categoria":"Carniceria",
-        "status":true, 
-        "code":"CAR438",
-        "stock": 10
-    },
-    {
-        "id": 5,
-        "nombre": "Yogurt", 
-        "descripcion":"entero", 
-        "precio": 145, 
-        "categoria":"Lacteos", 
-        "status":true,
-        "code":"LAC010",
-        "stock": 32
-    }
-
+  {
+    "title": "atun grande",
+    "description": "atun desmenuzado",
+    "price": 450,
+    "category": "Enlatados",
+    "code": "ENL958",
+    "stock": 145,
+    "id": 2,
+    "status": true
+  },
+  {
+    "title": "tomate",
+    "description": "en lata",
+    "price": 950,
+    "category": "Enlatados",
+    "code": "ENL078",
+    "stock": 15,
+    "id": 3,
+    "status": true
+  }
 ]

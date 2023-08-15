@@ -5,35 +5,59 @@ const productManager = new ProductManager ('src/models/product.json')
 const routerProd = Router()
 
 routerProd.get('/', async(req,res) => {
-    const {limit} = req.query
     const prods = await productManager.getProducts()
+    const limit = req.query.limit
     const products = prods.slice(0,limit)
     res.status(200).send(products)
 })
 
 routerProd.get('/:pid', async (req,res)=> {
-    const {pid} = req.params
+    const pid = parseInt(req.params.pid)
     const prod = await productManager.getProductsById(parseInt(pid))
+    if (!Number.isInteger(pid)) {
+        res.status(400).send("Invalid product ID");
+        return;
+    }
     (prod) ? res.status(200).send(prod) : res.status(404).send("Product does not exist")
 })
 
 routerProd.post ('/', async (req,res) => {
-    const confirmacion = await productManager.addProduct(req.body)
     
-    (confirmacion) ? res.status(200).send("Product created") : res.status(400).send("Product already exists")
+    console.log("producto a agregar:", req.body)
+    const confirmacion = await productManager.addProduct(req.body) 
+    
+    setTimeout(() => {
+        (confirmacion) ? res.status(200).send("Product created") : res.status(400).send("Product already exists")
+    }, 1000);
+    
 })
 
-routerProd.put('/:pid', async (rea,res) => {
-    const {pid} = req.params
+routerProd.put('/:pid', async (req,res) => {
+    console.log("producto a modificar:", req.body)
+    const pid = parseInt(req.params.pid)
+    if (!Number.isInteger(pid)) {
+        res.status(400).send("Invalid product ID");
+        return;
+    }
+    
     const confirmacion = await productManager.updateProduct(pid, req.body)
-    (confirmacion) ? res.status(200).send("Product updated") : res.status(404).send("Product not found")
-
+    setTimeout(() => {
+        (confirmacion) ? res.status(200).send("Product updated") : res.status(404).send("Product not found")
+    }, 1000);
 })
 
 routerProd.delete('/:pid', async (req,res)=> {
-    const {pid} = req.params
+    const pid = parseInt(req.params.pid)
+    console.log("pid", pid)
+    if (!Number.isInteger(pid)) {
+        res.status(400).send("Invalid product ID");
+        return;
+    }
+
     const confirmacion = await productManager.deleteProduct(pid)
-    (confirmacion) ? res.status(200).send("Product deleted") : res.status(404).send("Product not found")
+    setTimeout(() => {
+        (confirmacion) ? res.status(200).send("Product deleted") : res.status(404).send("Product not found")
+    }, 1000);
 })
 
 export default routerProd
