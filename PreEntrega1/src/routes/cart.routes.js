@@ -7,19 +7,19 @@ const routerCart = Router();
 
 routerCart.post('/', async (req, res) => {
     const newCart = await cartManager.createCart();
-    res.status(201).send(newCart);
+    res.status(201).json(newCart);
 });
 
 routerCart.get('/', async (req, res) => {
     const carts = await cartManager.getCarts();
-    (carts.length === 0) ? res.status(404).send("No carts found") : res.status(200).send(carts)
+    (carts.length === 0) ? res.status(404).send("No carts found") : res.status(200).json(carts)
 });
 
 
 routerCart.get('/:cid', async (req, res) => {
     const cid = req.params.cid;
     const cart = await cartManager.getCartById(cid);
-    (cart) ? res.status(200).send(cart) : res.status(404).send("Cart not found");
+    (cart) ? res.status(200).json(cart) : res.status(404).send("Cart not found");
 });
 
 routerCart.delete('/:cid', async (req, res) => {
@@ -33,9 +33,8 @@ routerCart.post('/:cid/product/:pid', async (req, res) => {
     const {quantity} = req.body;
     const success = await cartManager.addProductToCart(cid, pid, quantity);
     
-    setTimeout(() => {
-        (success) ? res.status(200).send("Product added to cart") : res.status(404).send("Cart not found");
-    }, 1500);
+    (success) ? res.status(200).send("Product added to cart") : res.status(404).send("Cart not found");
+    
 });
 
 export default routerCart;

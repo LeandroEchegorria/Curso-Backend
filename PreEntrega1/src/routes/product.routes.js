@@ -8,7 +8,7 @@ routerProd.get('/', async(req,res) => {
     const prods = await productManager.getProducts()
     const limit = req.query.limit
     const products = prods.slice(0,limit)
-    res.status(200).send(products)
+    res.status(200).json(products)
 })
 
 routerProd.get('/:pid', async (req,res)=> {
@@ -18,7 +18,7 @@ routerProd.get('/:pid', async (req,res)=> {
         res.status(400).send("Invalid product ID");
         return;
     }
-    (prod) ? res.status(200).send(prod) : res.status(404).send("Product does not exist")
+    (prod) ? res.status(200).json(prod) : res.status(404).send("Product does not exist")
 })
 
 routerProd.post ('/', async (req,res) => {
@@ -26,9 +26,9 @@ routerProd.post ('/', async (req,res) => {
     console.log("producto a agregar:", req.body)
     const confirmacion = await productManager.addProduct(req.body) 
     
-    setTimeout(() => {
-        (confirmacion) ? res.status(200).send("Product created") : res.status(400).send("Product already exists")
-    }, 1000);
+    
+    (confirmacion) ? res.status(200).send("Product created") : res.status(400).send("Product already exists")
+    
     
 })
 
@@ -41,9 +41,9 @@ routerProd.put('/:pid', async (req,res) => {
     }
     
     const confirmacion = await productManager.updateProduct(pid, req.body)
-    setTimeout(() => {
-        (confirmacion) ? res.status(200).send("Product updated") : res.status(404).send("Product not found")
-    }, 1000);
+    
+    (confirmacion) ? res.status(200).send("Product updated") : res.status(404).send("Product not found")
+    
 })
 
 routerProd.delete('/:pid', async (req,res)=> {
@@ -55,9 +55,9 @@ routerProd.delete('/:pid', async (req,res)=> {
     }
 
     const confirmacion = await productManager.deleteProduct(pid)
-    setTimeout(() => {
-        (confirmacion) ? res.status(200).send("Product deleted") : res.status(404).send("Product not found")
-    }, 1000);
+    
+    (confirmacion) ? res.status(200).send("Product deleted") : res.status(404).send("Product not found")
+    
 })
 
 export default routerProd
