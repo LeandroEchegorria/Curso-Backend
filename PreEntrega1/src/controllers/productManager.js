@@ -70,11 +70,11 @@ export class ProductManager {
     }
 
     async deleteProduct (id) {
-    const products = JSON.parse(await fs.readFile(this.path, 'utf-8'))
-    console.log("prods",products)
-    const buscado = await products.find(item => item.id === parseInt(id));
-    console.log("buscado",buscado)
-        
+        const products = JSON.parse(await fs.readFile(this.path, 'utf-8'))
+        console.log("prods",products)
+        const buscado = await products.find(item => item.id === parseInt(id));
+        console.log("buscado",buscado)
+            
         if (buscado) {
             const prods= products.filter(prod=> prod.id !== parseInt(id)) 
             await fs.writeFile(this.path, JSON.stringify(prods, null, 2))
